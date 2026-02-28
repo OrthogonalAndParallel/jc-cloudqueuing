@@ -1,0 +1,26 @@
+page {
+  background: #f6f7f9;
+  color: #111;
+}
+
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  margin: 12px;
+}
+
+.btn {
+  margin-top: 12px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.muted {
+  color: #666;
+}

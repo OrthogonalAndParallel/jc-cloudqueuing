@@ -1,0 +1,29 @@
+<view class="card">
+  <view class="row">
+    <view>队列</view>
+    <input value="{{queueId}}" placeholder="default" bindinput="onQueueIdInput" style="text-align:right" />
+  </view>
+  <view class="row" style="margin-top:12px;">
+    <view>昵称</view>
+    <input value="{{nickname}}" placeholder="可选" bindinput="onNicknameInput" style="text-align:right" />
+  </view>
+
+  <button class="btn" type="primary" bindtap="onJoin">加入排队</button>
+  <button class="btn" bindtap="onRefresh">刷新状态</button>
+  <button class="btn" type="warn" bindtap="onCancel">取消排队</button>
+</view>
+
+<view class="card">
+  <view>我的状态</view>
+  <view class="muted" style="margin-top:8px;">userId: {{userId}}</view>
+  <view style="margin-top:8px;">当前位置：{{positionText}}</view>
+  <view style="margin-top:8px;">当前等待人数：{{waitingCountText}}</view>
+  <view class="muted" style="margin-top:8px;">最后刷新：{{lastUpdatedText}}</view>
+</view>
+
+<view class="card">
+  <view class="row">
+    <view>店家端</view>
+    <navigator url="/pages/admin/admin">进入叫号页</navigator>
+  </view>
+</view>

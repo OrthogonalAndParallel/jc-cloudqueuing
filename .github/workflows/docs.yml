@@ -1,0 +1,44 @@
+name: Deploy Workers to Cloudflare
+
+on:
+  push:
+    branches: [ main, master ]
+    paths:
+      - 'jc-workers/**'  # 只在 jc-workers 目录有变化时触发
+  pull_request:
+    branches: [ main, master ]
+    paths:
+      - 'jc-workers/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy Workers
+    defaults:
+      run:
+        working-directory: jc-workers  # 设置工作目录
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          
+      - name: Install dependencies
+        run: npm ci  # 如果有 package.json
+        # 如果没有依赖，可以改为: run: echo "No dependencies"
+        
+      - name: Deploy to Cloudflare Workers
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: jc-workers
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          command: deploy
+          # 如果使用 Wrangler v2，可以去掉 command 参数
+          # secrets: |
+          #   SECRET_KEY
