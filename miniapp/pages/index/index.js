@@ -8,7 +8,17 @@ Page({
     userId: "",
     positionText: "-",
     waitingCountText: "-",
+    startAtText: "-",
     lastUpdatedText: "-"
+  },
+
+  formatTime(ms) {
+    if (!ms) return "-";
+    try {
+      return new Date(ms).toLocaleString();
+    } catch {
+      return "-";
+    }
   },
 
   onLoad() {
@@ -61,9 +71,19 @@ Page({
       const res = await api.status({ queueId, userId });
       const pos = res && res.ok ? res.position : null;
       const waitingCount = res && res.ok ? res.waitingCount : null;
+
+      let startAtText = "-";
+      if (pos) {
+        const listRes = await api.list({ queueId });
+        const items = listRes && listRes.ok && Array.isArray(listRes.items) ? listRes.items : [];
+        const mine = items.find((x) => x && x.userId === userId && x.status === "waiting");
+        startAtText = this.formatTime(mine && mine.createdAt);
+      }
+
       this.setData({
         positionText: pos ? String(pos) : "未排队",
         waitingCountText: waitingCount != null ? String(waitingCount) : "-",
+        startAtText,
         lastUpdatedText: new Date().toLocaleString()
       });
     } catch (e) {

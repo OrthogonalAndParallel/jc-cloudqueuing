@@ -17,6 +17,7 @@
   <view>我的状态</view>
   <view class="muted" style="margin-top:8px;">userId: {{userId}}</view>
   <view style="margin-top:8px;">当前位置：{{positionText}}</view>
+  <view style="margin-top:8px;">开始时间：{{startAtText}}</view>
   <view style="margin-top:8px;">当前等待人数：{{waitingCountText}}</view>
   <view class="muted" style="margin-top:8px;">最后刷新：{{lastUpdatedText}}</view>
 </view>
@@ -25,5 +26,12 @@
   <view class="row">
     <view>店家端</view>
     <navigator url="/pages/admin/admin">进入叫号页</navigator>
+  </view>
+</view>
+
+<view class="card">
+  <view class="row">
+    <view>排队情况</view>
+    <navigator url="/pages/queue/queue">查看队列</navigator>
   </view>
 </view>

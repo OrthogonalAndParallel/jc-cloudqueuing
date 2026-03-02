@@ -109,6 +109,10 @@ curl -s "http://localhost:5173/api/list?queueId=default"
 
 会返回完整 items（含 `waiting/called/canceled`）。
 
+```json
+{"ok":true,"items":[{"id":"2e33174a-372d-4021-9b55-4e83334be459","userId":"u_1772415804847_devtools_b19bff681e023","nickname":"jc","createdAt":1772416001583,"status":"canceled"},{"id":"e171f6bf-de85-4dad-aff8-51d9919c1195","userId":"u_1772415804847_devtools_b19bff681e023","nickname":"wh","createdAt":1772416511028,"status":"waiting"}]}
+```
+
 ---
 
 ### 5) 店家叫号（next）

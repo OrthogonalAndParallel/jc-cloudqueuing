@@ -1,2 +1,50 @@
 <!--pages/admin/admin.wxml-->
-<text>pages/admin/admin.wxml</text>
+<view class="card">
+  <view class="row">
+    <view>角色</view>
+    <view class="muted">{{roleText}}</view>
+  </view>
+
+  <view wx:if="{{roleText !== 'admin'}}" style="margin-top:12px;">
+    <view class="muted">管理员口令（默认：admin）</view>
+    <input password value="{{adminPasscode}}" placeholder="输入管理员口令" bindinput="onAdminPasscodeInput" style="margin-top:8px;" />
+    <button class="btn" type="primary" bindtap="onAdminLogin">切换为管理员</button>
+  </view>
+
+  <view wx:if="{{roleText === 'admin'}}" style="margin-top:12px;">
+    <button class="btn" bindtap="onLogout">退出管理员</button>
+  </view>
+</view>
+
+<view class="card">
+  <view class="row">
+    <view>队列</view>
+    <input value="{{queueId}}" placeholder="default" bindinput="onQueueIdInput" style="text-align:right" />
+  </view>
+
+  <button class="btn" bindtap="onRefresh">刷新列表</button>
+  <button class="btn" type="primary" bindtap="onNext">叫下一个号</button>
+
+  <view class="muted" style="margin-top:8px;">最后刷新：{{lastUpdatedText}}</view>
+</view>
+
+<view class="card">
+  <view>队列明细</view>
+
+  <view wx:if="{{roleText !== 'admin'}}" class="muted" style="margin-top:8px;">
+    登录管理员后可查看队列与叫号
+  </view>
+
+  <view wx:if="{{roleText === 'admin' && items.length === 0}}" class="muted" style="margin-top:8px;">
+    暂无数据
+  </view>
+
+  <view wx:for="{{items}}" wx:key="id" style="padding:10px 0; border-bottom: 1px solid #eee;">
+    <view class="row">
+      <view>{{index + 1}}. {{item.nickname || item.userId}}</view>
+      <view class="muted">{{item.status}}</view>
+    </view>
+    <view class="muted" style="margin-top:6px;">开始时间: {{item.createdAtText}}</view>
+    <view class="muted" style="margin-top:6px;">userId: {{item.userId}}</view>
+  </view>
+</view>
