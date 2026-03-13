@@ -35,6 +35,20 @@ Page({
     this.setData({ nickname: e.detail.value || "" });
   },
 
+  /*
+  async testNetwork() {
+    wx.cloud.callFunction({
+      name: 'testWorker',
+      success: res => {
+        console.log('调用成功', res.result)
+      },
+      fail: err => {
+        console.log('调用失败', err)
+      }
+    })
+  },
+  */
+
   async onJoin() {
     const { queueId, userId, nickname } = this.data;
     try {

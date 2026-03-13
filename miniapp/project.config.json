@@ -29,7 +29,8 @@
     "ignore": [],
     "include": []
   },
-  "appid": "wxf837762cc778639b",
+  "appid": "wx2e5ff6cbd6c5a9bc",
   "editorSetting": {},
-  "libVersion": "3.14.3"
+  "libVersion": "3.14.3",
+  "cloudfunctionRoot": "cloudfunctions/"
 }
