@@ -9,7 +9,8 @@ Page({
     positionText: "-",
     waitingCountText: "-",
     startAtText: "-",
-    lastUpdatedText: "-"
+    lastUpdatedText: "-",
+    adminKey: ""
   },
 
   formatTime(ms) {
@@ -33,6 +34,33 @@ Page({
 
   onNicknameInput(e) {
     this.setData({ nickname: e.detail.value || "" });
+  },
+
+  onGetUserProfile() {
+    wx.getUserProfile({
+      desc: '用于显示排队昵称',
+      success: (res) => {
+        const nickname = res.userInfo.nickName;
+        this.setData({ nickname });
+        wx.showToast({ title: '获取成功', icon: 'success' });
+      },
+      fail: () => {
+        wx.showToast({ title: '获取失败', icon: 'none' });
+      }
+    });
+  },
+
+  onAdminKeyInput(e) {
+    this.setData({ adminKey: e.detail.value || "" });
+  },
+
+  onGoAdmin() {
+    const { adminKey } = this.data;
+    if (adminKey === "admin") {
+      wx.navigateTo({ url: "/pages/admin/admin" });
+    } else {
+      wx.showToast({ title: '口令错误', icon: 'none' });
+    }
   },
 
   /*
@@ -94,7 +122,9 @@ Page({
         startAtText = this.formatTime(mine && mine.createdAt);
       }
 
+      const nickname = res && res.ok && res.nickname ? res.nickname : this.data.nickname;
       this.setData({
+        nickname,
         positionText: pos ? String(pos) : "未排队",
         waitingCountText: waitingCount != null ? String(waitingCount) : "-",
         startAtText,

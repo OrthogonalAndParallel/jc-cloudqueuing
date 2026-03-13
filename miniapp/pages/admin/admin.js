@@ -20,6 +20,15 @@ Page({
     }
   },
 
+  formatStatus(status) {
+    const statusMap = {
+      waiting: "等待中",
+      called: "已叫号",
+      canceled: "已取消"
+    };
+    return statusMap[status] || status;
+  },
+
   onLoad() {
     this.syncRole();
     if (auth.isAdmin()) {
@@ -79,7 +88,8 @@ Page({
       const rawItems = res && res.ok && Array.isArray(res.items) ? res.items : [];
       const items = rawItems.map((it) => ({
         ...it,
-        createdAtText: this.formatTime(it && it.createdAt)
+        createdAtText: this.formatTime(it && it.createdAt),
+        statusText: this.formatStatus(it && it.status)
       }));
       this.setData({
         items,

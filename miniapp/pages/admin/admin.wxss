@@ -1,4 +1,4 @@
-/* pages/queue/queue.wxss */
+/* pages/admin/admin.wxss */
 
 .status-waiting {
   color: #07c160;

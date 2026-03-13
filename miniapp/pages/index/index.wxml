@@ -2,22 +2,29 @@
   <!--
   <button class="btn" type="primary" bindtap="testNetwork">网络测试</button>
   -->
+  <!--
   <view class="row">
-    <view>队列</view>
+    <view>默认队列</view>
     <input value="{{queueId}}" placeholder="default" bindinput="onQueueIdInput" style="text-align:right" />
   </view>
+  -->
   <view class="row" style="margin-top:12px;">
     <view>昵称</view>
-    <input value="{{nickname}}" placeholder="可选" bindinput="onNicknameInput" style="text-align:right" />
+    <view style="display:flex;align-items:center;">
+      <text style="margin-right:8px;">{{nickname || '未设置'}}</text>
+      <button size="mini" bindtap="onGetUserProfile">获取微信昵称</button>
+    </view>
   </view>
-  <button class="btn" type="primary" bindtap="onJoin">加入排队</button>
-  <button class="btn" bindtap="onRefresh">刷新状态</button>
-  <button class="btn" type="warn" bindtap="onCancel">取消排队</button>
+  <view style="display:flex;justify-content:space-between;margin-top:12px;">
+    <button style="flex:1;margin:0 4px;" type="primary" bindtap="onJoin">加入排队</button>
+    <button style="flex:1;margin:0 4px;" bindtap="onRefresh">刷新状态</button>
+    <button style="flex:1;margin:0 4px;" type="warn" bindtap="onCancel">取消排队</button>
+  </view>
 </view>
 
 <view class="card">
   <view>我的状态</view>
-  <view class="muted" style="margin-top:8px;">userId: {{userId}}</view>
+  <view class="muted" style="margin-top:8px;">用户名称：{{nickname || userId}}</view>
   <view style="margin-top:8px;">当前位置：{{positionText}}</view>
   <view style="margin-top:8px;">开始时间：{{startAtText}}</view>
   <view style="margin-top:8px;">当前等待人数：{{waitingCountText}}</view>
@@ -26,14 +33,19 @@
 
 <view class="card">
   <view class="row">
-    <view>店家端</view>
-    <navigator url="/pages/admin/admin">进入叫号页</navigator>
+    <view>排队情况</view>
+    <navigator url="/pages/queue/queue">查看队列</navigator>
   </view>
 </view>
 
 <view class="card">
   <view class="row">
-    <view>排队情况</view>
-    <navigator url="/pages/queue/queue">查看队列</navigator>
+    <view>管理入口</view>
+    <view style="display:flex;align-items:center;">
+      <input placeholder="输入口令" bindinput="onAdminKeyInput" style="width:80px;text-align:right;margin-right:8px;" />
+      <button size="mini" bindtap="onGoAdmin">进入</button>
+    </view>
   </view>
 </view>
+
+
